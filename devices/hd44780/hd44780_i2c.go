@@ -249,25 +249,25 @@ func (display *HD44780) ScrollDisplayRight() {
 	display.Command(LCD_CURSORSHIFT | LCD_DISPLAYMOVE | LCD_MOVERIGHT)
 }
 
-// This is for text that flows Left to Right
+// LeftToRight is for text that flows Left to Right
 func (display *HD44780) LeftToRight() {
 	display.displayMode |= LCD_ENTRYLEFT
 	display.Command(LCD_ENTRYMODESET | display.displayMode)
 }
 
-// This is for text that flows Right to Left
+// RightToLeft is for text that flows Right to Left
 func (display *HD44780) RightToLeft() {
 	display.displayMode &= ^LCD_ENTRYLEFT
 	display.Command(LCD_ENTRYMODESET | display.displayMode)
 }
 
-// This will 'right justify' text from the cursor
+// Autoscroll will 'right justify' text from the cursor
 func (display *HD44780) Autoscroll() {
 	display.displayMode |= LCD_ENTRYSHIFTINCREMENT
 	display.Command(LCD_ENTRYMODESET | display.displayMode)
 }
 
-// This will 'left justify' text from the cursor
+// NoAutoscroll will 'left justify' text from the cursor
 func (display *HD44780) NoAutoscroll() {
 	display.displayMode &= ^LCD_ENTRYSHIFTINCREMENT
 	display.Command(LCD_ENTRYMODESET | display.displayMode)

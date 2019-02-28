@@ -67,7 +67,7 @@ func NewNunchuck(module hwio.I2CModule) (*Nunchuck, error) {
 	return n, nil
 }
 
-// Read all sensor values from the nunchuck and reads them into the internal state of the nunchuck instance.
+// ReadSensors reads all sensor values from the nunchuck and reads them into the internal state of the nunchuck instance.
 // Use Get methods to retrieve sensor values since last call of ReadSensors.
 func (n *Nunchuck) ReadSensors() error {
 	// Get bytes from the sensor, packed into 6 bytes.
@@ -141,12 +141,12 @@ func (n *Nunchuck) GetCPressed() bool {
 	return n.lastCPressed
 }
 
-// Read roll in degrees, computed from accelerometer
+// GetRoll reads roll in degrees, computed from accelerometer
 func (n *Nunchuck) GetRoll() float32 {
 	return float32(math.Atan2(float64(n.lastAccelX), float64(n.lastAccelZ)) / math.Pi * 180.0)
 }
 
-// Read pitch in degrees, computed from accelerometer
+// GetPitch reads pitch in degrees, computed from accelerometer
 func (n *Nunchuck) GetPitch() float32 {
 	return float32(math.Acos(float64(n.lastAccelY)/RADIUS) / math.Pi * 180.0)
 }

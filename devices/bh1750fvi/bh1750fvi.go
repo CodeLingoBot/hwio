@@ -60,7 +60,7 @@ func NewBH1750FVI(module hwio.I2CModule) *BH1750FVI {
 	return NewBH1750FVIAddr(module, DEVICE_ADDRESS_ADDR_LOW)
 }
 
-// Read the light level in low resolution mode, which is to a 4 lux precision.
+// ReadLightLevel reads the light level in low resolution mode, which is to a 4 lux precision.
 func (t *BH1750FVI) ReadLightLevel(mode ReadMode) (float32, error) {
 	// Get the settings
 	m := modes[mode]

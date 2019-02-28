@@ -98,18 +98,18 @@ func SetDriver(d HardwareDriver) {
 	definedPins = driver.PinMap()
 }
 
-// Retrieve the current hardware driver.
+// GetDriver retrieves the current hardware driver.
 func GetDriver() HardwareDriver {
 	return driver
 }
 
-// Returns a map of the hardware pins. This will only work once the driver is
+// GetDefinedPins returns a map of the hardware pins. This will only work once the driver is
 // set.
 func GetDefinedPins() HardwarePinMap {
 	return definedPins
 }
 
-// Ensure that any resources external to the program that have been allocated are tidied up.
+// CloseAll ensures that any resources external to the program that have been allocated are tidied up.
 func CloseAll() {
 	if driver == nil {
 		return
@@ -117,7 +117,7 @@ func CloseAll() {
 	driver.Close()
 }
 
-// Returns a Pin given a canonical name for the pin.
+// GetPin returns a Pin given a canonical name for the pin.
 // e.g. to get the pin number of P8.13 on a beaglebone,
 //     pin := hwio.GetPin("P8.13")
 // Order of search is:
@@ -241,7 +241,7 @@ func UnassignPins(pins PinList) (er error) {
 	return
 }
 
-// Write a value to a digital pin
+// DigitalWrite writes a value to a digital pin
 func DigitalWrite(pin Pin, value int) (e error) {
 	gpio, e := GetGPIOModule()
 	if e != nil {
@@ -251,7 +251,7 @@ func DigitalWrite(pin Pin, value int) (e error) {
 	return gpio.DigitalWrite(pin, value)
 }
 
-// Read a value from a digital pin
+// DigitalRead reads a value from a digital pin
 func DigitalRead(pin Pin) (result int, e error) {
 	// @todo consider memoizing
 	gpio, e := GetGPIOModule()
@@ -306,7 +306,7 @@ func GetAnalogModule() (AnalogModule, error) {
 	return m.(AnalogModule), nil
 }
 
-// Read an analog value from a pin. The range of values is hardware driver dependent.
+// AnalogRead reads an analog value from a pin. The range of values is hardware driver dependent.
 func AnalogRead(pin Pin) (int, error) {
 	analog, e := GetAnalogModule()
 	if e != nil {
@@ -430,7 +430,7 @@ func WriteUIntToPins(value uint32, pins []Pin) error {
 	return nil
 }
 
-// Write a string to a file and close it again.
+// WriteStringToFile writes a string to a file and close it again.
 func WriteStringToFile(filename string, value string) error {
 	//	fmt.Printf("writing %s to file %s\n", value, filename)
 	f, e := os.OpenFile(filename, os.O_WRONLY|os.O_TRUNC, 0666)
@@ -475,7 +475,7 @@ func ReverseBytes32(value uint32) uint32 {
 	return 0
 }
 
-// Get a module by name. If driver is not set, it will return an error. If the driver does not support that module,
+// GetModule gets a module by name. If driver is not set, it will return an error. If the driver does not support that module,
 //
 func GetModule(name string) (Module, error) {
 	driver := GetDriver()

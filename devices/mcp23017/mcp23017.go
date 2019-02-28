@@ -73,22 +73,22 @@ func (d *MCP23017) SetDirB(value byte) error {
 	return d.device.WriteByte(REG_IODIRB, value)
 }
 
-// Read from port A
+// GetPortA reads from port A
 func (d *MCP23017) GetPortA() (byte, error) {
 	return d.device.ReadByte(REG_GPIOA)
 }
 
-// Read from port B
+// GetPortB reads from port B
 func (d *MCP23017) GetPortB() (byte, error) {
 	return d.device.ReadByte(REG_GPIOB)
 }
 
-// Write to port A
+// SetPortA writes to port A
 func (d *MCP23017) SetPortA(value byte) error {
 	return d.device.WriteByte(REG_GPIOA, value)
 }
 
-// Write to port B
+// SetPortB writes to port B
 func (d *MCP23017) SetPortB(value byte) error {
 	return d.device.WriteByte(REG_GPIOB, value)
 }

@@ -190,7 +190,7 @@ func (device *DTI2CDevice) Read(command byte, numBytes int) ([]byte, error) {
 	return result, nil
 }
 
-// Read 1 byte from the bus
+// ReadByte reads 1 byte from the bus
 func (device *DTI2CDevice) ReadByte(command byte) (byte, error) {
 	device.module.Lock()
 	defer device.module.Unlock()
